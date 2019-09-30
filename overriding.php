@@ -11,23 +11,17 @@ class produk {
 	public $judul ,
 	       $penulis ,
 	       $penerbit ,
-	       $harga ,
-         $jmlHalaman,
-         $waktuMain;
+	       $harga ;
         
 
   // constructor
-         public function __construct ($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jmlHalaman = 0, $waktuMain = 0){
+         public function __construct ($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0){
           // memanggil property
           $this->judul = $judul;
           $this->penulis = $penulis;
           $this->penerbit = $penerbit;
           $this->harga = $harga;
-          $this->jmlHalaman = $jmlHalaman;
-          $this->waktuMain =$waktuMain;
-      
-
-       
+    
          }
 
 	// method
@@ -46,8 +40,18 @@ class produk {
 }
 // class inheritance
 class komik extends produk{
+  public $jmlHalaman;
+
+  public function __construct ($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0,  $jmlHalaman = 0){
+
+    parent::__construct($judul, $penulis, $penerbit, $harga);
+
+    $this->jmlHalaman = $jmlHalaman;
+
+
+  }
   public function getInfoProduk (){
-      $str = "komik : {$this->judul} | {$this->getlabel()} (Rp. {$this->harga}) - {$this->jmlHalaman} Halaman.";
+      $str = "komik : ". parent::getInfoProduk() . " - {$this->jmlHalaman} Halaman.";
 
       return $str;
 
@@ -55,15 +59,24 @@ class komik extends produk{
 } 
 
 class game extends produk{
-  public function getInfoProduk (){
-      $str = "game : {$this->judul} | {$this->getlabel()} (Rp. {$this->harga}) ~ {$this->waktuMain} jam.";
-      
-      return $str;
+  public $waktuMain;
+
+  public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0,  $waktuMain = 0){
+
+    parent::__construct($judul, $penulis, $penerbit, $harga);
+
+    
+    $this->waktuMain = $waktuMain;
 
   }
 
-} 
+public function getInfoProduk (){
+      $str = "game : ". parent::getInfoProduk() . " - {$this->waktuMain} jam.";
 
+      return $str;
+
+  }
+} 
 
 class CetakInfoProduk {
   public function cetak (produk $produk){
@@ -75,7 +88,7 @@ class CetakInfoProduk {
 
    // instansiasi
   $produk1 = new komik("naruto", "massashi kishimoto", "shonen jump" ,30000 , 100, 0);
-  $produk2 = new game("uncharted", "neil drackman", "sony computer", 25000 , 0, 50);
+  $produk2 = new game("uncharted", "neil drackman", "sony computer", 25000 , 50, 0);
  
   echo $produk1->getInfoProduk();
   echo "<br>";
