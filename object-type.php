@@ -32,7 +32,7 @@ class produk {
 
 }
 
-//class baru
+//class Object-type
 class CetakInfoProduk {
   public function cetak (produk $produk){
     $str = "{$produk->judul} | {$produk->getlabel()} (Rp. {$produk->harga})"; 
